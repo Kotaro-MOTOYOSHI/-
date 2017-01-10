@@ -1,0 +1,70 @@
+\documentclass{thesis}
+
+% \usepackage[dviout,dvipdfmx]{graphicx}
+\usepackage[dviout]{graphicx}
+% \usepackage{mediabb}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsbsy}
+% \usepackage{setspace}
+% \usepackage{indentfirst}
+% \usepackage{subfigure}
+% \usepackage{verbatim}
+\usepackage{ascmac,fancybox}
+% \usepackage{makeidx}
+% \usepackage{enumerate}
+% \usepackage{array}
+\usepackage{txfonts}
+% \usepackage{url}
+% \usepackage{multirow}
+% \usepackage{float}
+\usepackage{color}
+% \usepackage{subfigure}
+\usepackage{comment}
+
+\def\thline{\noalign{\hrule height 1.3pt}}
+\def\tvline{\vrule width 1.3pt}
+
+% \setcounter{MaxMatrixCols}{15}
+\begin{document}
+% 概要
+\input{text0}
+
+% 目次
+\tableofcontents
+
+% 序論
+\input{text1}
+
+% 関連研究
+\input{text2}
+
+% 提案手法
+\input{text3}
+
+% 結果
+\input{text4}
+
+% 結論
+\input{text5}
+
+% 謝辞
+\acknowledgement
+
+本研究を行うに当たり，情報基盤研究室の皆様には懇切なるご指導を頂き，大変お世話になりました．
+特に，川原稔先生には，研究内容での議論の際に激励を賜り，本論文の内容の細部にいたるまでチェックして頂きました．
+そして，佐々木隆志先生にはプログラムコードの作成の際に適切なご助言を頂き，大変お世話になりました．
+
+お世話になりました愛媛大学総合情報メディアセンタの職員の皆様，研究室の皆様に感謝致します．\\
+最後に，本研究に対して審査頂きました○○先生および○○先生に深くお礼申しあげます．
+
+% 参考文献
+　
+ \bibliographystyle{ipsjsort}
+ \bibliography{Bibliographies}
+ \nocite{*}
+% \input{auth}
+
+
+\end{document}
