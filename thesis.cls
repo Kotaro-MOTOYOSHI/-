@@ -1,6 +1,6 @@
 %%
 %% $Id: thesis.cls,v 1.18 2003/03/02 02:15:56 aman Exp $
-%% CmE‘²‹Æ˜_•¶—pƒNƒ‰ƒXƒtƒ@ƒCƒ‹   
+%% ä¿®å£«ãƒ»å’æ¥­è«–æ–‡ç”¨ã‚¯ãƒ©ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«   
 %%
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesClass{thesis}
@@ -82,7 +82,7 @@
   \setlength{\@tombowwidth}{\z@}%
   \maketombowbox}
 \DeclareOption{tate}{%
-  \AtBeginDocument{\tate\message{sc‘gƒ‚[ƒht}%
+  \AtBeginDocument{\tate\message{ã€Šç¸¦çµ„ãƒ¢ãƒ¼ãƒ‰ã€‹}%
                    \adjustbaseline}%
 }
 \DeclareOption{oneside}{\@twosidefalse}
@@ -115,23 +115,23 @@
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% M2, B4 ‚Æ‚¢‚¤ƒIƒvƒVƒ‡ƒ“‚ğì¬
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% M2, B4 ã¨ã„ã†ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä½œæˆ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \newif\if@master
 \DeclareOption{M2}{\@mastertrue}
 \DeclareOption{B4}{\@masterfalse}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ƒfƒtƒHƒ‹ƒg‚ğ a4j, 11pt, oneside, onecolumn, openany, titlepage, fleqn, M2
-% ‚É‚·‚é
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚’ a4j, 11pt, oneside, onecolumn, openany, titlepage, fleqn, M2
+% ã«ã™ã‚‹
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %\ExecuteOptions{a4paper,10pt,twoside,onecolumn,final,openright}
 \ExecuteOptions{a4j,11pt,oneside,onecolumn,final,openany,titlepage,fleqn,M2}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 \ProcessOptions\relax
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ‚±‚±‚É jbk11.clo ‚Ì“à—e‚ğ‘}“ü‚µC—]”’“™‚Ìİ’è‚ğs‚¤
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% jbk11.clo % ‚±‚±‚©‚ç %%%
+% ã“ã“ã« jbk11.clo ã®å†…å®¹ã‚’æŒ¿å…¥ã—ï¼Œä½™ç™½ç­‰ã®è¨­å®šã‚’è¡Œã†
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% jbk11.clo % ã“ã“ã‹ã‚‰ %%%
 %\input{jbk1\@ptsize.clo}
 \renewcommand{\normalsize}{%
     \@setfontsize\normalsize\@xiipt{16.5}%
@@ -176,11 +176,11 @@
 \let\Huge=\huge
 \setlength\headheight{12\p@}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ƒwƒbƒ_‚Æ–{•¶‚ÌŠÔ‚Ì‹ó”’‚ğ 1.5cm ‚É•ÏX
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% ãƒ˜ãƒƒãƒ€ã¨æœ¬æ–‡ã®é–“ã®ç©ºç™½ã‚’ 1.5cm ã«å¤‰æ›´
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%\setlength\headsep{.275in}
 \setlength\headsep{1.5cm}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 \setlength\topskip{1\Cht}
 \setlength\footskip{.38in}
 \if@compatibility
@@ -228,11 +228,11 @@
       \setlength\textwidth{.8\paperwidth}
     \else
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ‰E—]”’‚ğ 20mm ‚Éİ’è
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% å³ä½™ç™½ã‚’ 20mm ã«è¨­å®š
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%      \setlength\textwidth{.7\paperwidth}
       \setlength\textwidth{150mm}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
     \fi
   \else
     \setlength\@tempdima{\paperwidth}
@@ -289,11 +289,11 @@
 \else
   \if@stysize
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ‰º—]”’ ‚ğ 35mm ‚Éİ’è
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% ä¸‹ä½™ç™½ ã‚’ 35mm ã«è¨­å®š
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%    \setlength\textheight{.70\paperheight}
     \setlength\textheight{237mm}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
   \else
     \setlength\@tempdima{\paperheight}
     \addtolength\@tempdima{-2in}
@@ -313,15 +313,15 @@
   \fi
 \else
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ã—]”’ ‚ğ 25mm ‚Éİ’è
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% ä¸Šä½™ç™½ ã‚’ 25mm ã«è¨­å®š
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%  \setlength\topmargin{\paperheight}
 \setlength\topmargin{25mm}
 %%%  \addtolength\topmargin{-\headheight}
 %%%  \addtolength\topmargin{-\headsep}
 %%%  \addtolength\topmargin{-\textheight}
 %%%  \addtolength\topmargin{-\footskip}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
   \if@stysize
     \ifnum\c@@paper=2 % A5
       \addtolength\topmargin{-1.3in}
@@ -362,8 +362,8 @@
     \setlength\oddsidemargin{.4\@tempdima}
   \else
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ¶—]”’ ‚ğ 40mm ‚Éİ’è
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% å·¦ä½™ç™½ ã‚’ 40mm ã«è¨­å®š
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%    \setlength\oddsidemargin{.5\@tempdima}
     \setlength\oddsidemargin{14.6mm}
   \fi
@@ -373,7 +373,7 @@
 %%%  \addtolength\evensidemargin{-2in}
 %%%  \addtolength\evensidemargin{-\textwidth}
 %%%  \addtolength\evensidemargin{-\oddsidemargin}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
   \@settopoint\oddsidemargin % 1999.1.6
   \@settopoint\evensidemargin
   \if@twoside
@@ -428,7 +428,7 @@
 \def\@listvi {\leftmargin\leftmarginvi
               \labelwidth\leftmarginvi
               \advance\labelwidth-\labelsep}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% jbk11.clo % ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% jbk11.clo % ã“ã“ã¾ã§ %%%
 \if@stysize
   \setlength\columnsep{2\Cwd}
 \else
@@ -438,11 +438,11 @@
 \setlength\lineskip{1\p@}
 \setlength\normallineskip{1\p@}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ‰üs•‚ğ 40 % ‘
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% æ”¹è¡Œå¹…ã‚’ 40 % å¢—
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%\renewcommand{\baselinestretch}{}
 \renewcommand{\baselinestretch}{1.5}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 \setlength\parskip{0\p@ \@plus \p@}
 \setlength\parindent{1\Cwd}
 \@lowpenalty   51
@@ -929,8 +929,8 @@
 \setlength\abovecaptionskip{10\p@}
 \setlength\belowcaptionskip{0\p@}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% caption ŠÂ‹«‚ÌÄ’è‹`
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% caption ç’°å¢ƒã®å†å®šç¾©
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 %%%\long\def\@makecaption#1#2{%
 %%%  \vskip\abovecaptionskip
 %%%  \iftdir\sbox\@tempboxa{#1\hskip1zw#2}%
@@ -959,7 +959,7 @@
  \else
  \hbox to \hsize{\hfil\box0\box1\hfil}
  \fi}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 \setlength\arraycolsep{5\p@}
 \setlength\tabcolsep{6\p@}
 \setlength\arrayrulewidth{.4\p@}
@@ -1034,21 +1034,21 @@
   \if@twocolumn\@restonecoltrue\onecolumn
   \else\@restonecolfalse\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% –ÚŸ‚Å‚Ì•Å”Ô†‚Í i, ii, ... ‚Æ‚·‚éD
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% ç›®æ¬¡ã§ã®é ç•ªå·ã¯ i, ii, ... ã¨ã™ã‚‹ï¼
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
   \pagenumbering{roman}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
   \chapter*{\contentsname
     \@mkboth{\contentsname}{\contentsname}%
   }\@starttoc{toc}%
   \if@restonecol\twocolumn\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% –ÚŸ‚ÌŸ•Å‚©‚ç 1, 2, ... ‚Æ‚·‚éD\pagenumbering ƒRƒ}ƒ“ƒh‚É‚æ‚è
-% ƒJƒEƒ“ƒ^‚Í 1 ‚ÉƒŠƒZƒbƒg‚³‚ê‚éD
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% ç›®æ¬¡ã®æ¬¡é ã‹ã‚‰ 1, 2, ... ã¨ã™ã‚‹ï¼\pagenumbering ã‚³ãƒãƒ³ãƒ‰ã«ã‚ˆã‚Š
+% ã‚«ã‚¦ãƒ³ã‚¿ã¯ 1 ã«ãƒªã‚»ãƒƒãƒˆã•ã‚Œã‚‹ï¼
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
   \newpage
   \pagenumbering{arabic}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 }
 \newcommand*{\l@part}[2]{%
   \ifnum \c@tocdepth >-2\relax
@@ -1108,12 +1108,12 @@
 \newenvironment{thebibliography}[1]
 {\chapter*{\bibname\@mkboth{\bibname}{\bibname}}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% –ÚŸ‚ÉQl•¶Œ£‚ğ’Ç‰Á
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
-   \addcontentsline{toc}{chapter}{Ql•¶Œ£}%
+% ç›®æ¬¡ã«å‚è€ƒæ–‡çŒ®ã‚’è¿½åŠ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
+   \addcontentsline{toc}{chapter}{å‚è€ƒæ–‡çŒ®}%
    \def\chaptermark##1{\markright{\hskip1zw ##1}}%
-   \chaptermark{Ql•¶Œ£}%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+   \chaptermark{å‚è€ƒæ–‡çŒ®}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
    \list{\@biblabel{\@arabic\c@enumiv}}%
         {\settowidth\labelwidth{\@biblabel{#1}}%
          \leftmargin\labelwidth
@@ -1151,49 +1151,49 @@
 \@addtoreset{footnote}{chapter}
 \newcommand\@makefntext[1]{\parindent 1em
   \noindent\hbox to 1.8em{\hss\@makefnmark}#1}
-\newif\if¼—ï \¼—ïfalse
-\def\¼—ï{\¼—ïtrue}
-\def\˜a—ï{\¼—ïfalse}
+\newif\ifè¥¿æš¦ \è¥¿æš¦false
+\def\è¥¿æš¦{\è¥¿æš¦true}
+\def\å’Œæš¦{\è¥¿æš¦false}
 \newcount\heisei \heisei\year \advance\heisei-1988\relax
 \def\today{{%
   \iftdir
-    \if¼—ï
-      \kansuji\number\year ”N
-      \kansuji\number\month Œ
-      \kansuji\number\day “ú
+    \ifè¥¿æš¦
+      \kansuji\number\year å¹´
+      \kansuji\number\month æœˆ
+      \kansuji\number\day æ—¥
     \else
-      •½¬\ifnum\heisei=1 Œ³”N\else\kansuji\number\heisei ”N\fi
-      \kansuji\number\month Œ
-      \kansuji\number\day “ú
+      å¹³æˆ\ifnum\heisei=1 å…ƒå¹´\else\kansuji\number\heisei å¹´\fi
+      \kansuji\number\month æœˆ
+      \kansuji\number\day æ—¥
     \fi
   \else
-    \if¼—ï
-      \number\year~”N
-      \number\month~Œ
-      \number\day~“ú
+    \ifè¥¿æš¦
+      \number\year~å¹´
+      \number\month~æœˆ
+      \number\day~æ—¥
     \else
-      •½¬\ifnum\heisei=1 Œ³”N\else\number\heisei~”N\fi
-      \number\month~Œ
-      \number\day~“ú
+      å¹³æˆ\ifnum\heisei=1 å…ƒå¹´\else\number\heisei~å¹´\fi
+      \number\month~æœˆ
+      \number\day~æ—¥
     \fi
   \fi}}
-\newcommand{\prepartname}{‘æ}
-\newcommand{\postpartname}{•”}
-\newcommand{\prechaptername}{‘æ}
-\newcommand{\postchaptername}{Í}
-\newcommand{\contentsname}{–Ú Ÿ}
-\newcommand{\listfigurename}{} –Ú Ÿ}
-\newcommand{\listtablename}{•\ –Ú Ÿ}
+\newcommand{\prepartname}{ç¬¬}
+\newcommand{\postpartname}{éƒ¨}
+\newcommand{\prechaptername}{ç¬¬}
+\newcommand{\postchaptername}{ç« }
+\newcommand{\contentsname}{ç›® æ¬¡}
+\newcommand{\listfigurename}{å›³ ç›® æ¬¡}
+\newcommand{\listtablename}{è¡¨ ç›® æ¬¡}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ŠÖ˜A}‘ ‚ğ Ql•¶Œ£ ‚É•ÏX
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
-%%%\newcommand{\bibname}{ŠÖ˜A}‘}
-\newcommand{\bibname}{Ql•¶Œ£}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
-\newcommand{\indexname}{õ ˆø}
-\newcommand{\figurename}{}}
-\newcommand{\tablename}{•\}
-\newcommand{\appendixname}{•t ˜^}
+% é–¢é€£å›³æ›¸ ã‚’ å‚è€ƒæ–‡çŒ® ã«å¤‰æ›´
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
+%%%\newcommand{\bibname}{é–¢é€£å›³æ›¸}
+\newcommand{\bibname}{å‚è€ƒæ–‡çŒ®}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
+\newcommand{\indexname}{ç´¢ å¼•}
+\newcommand{\figurename}{å›³}
+\newcommand{\tablename}{è¡¨}
+\newcommand{\appendixname}{ä»˜ éŒ²}
 \pagestyle{headings}
 \pagenumbering{arabic}
 \raggedbottom
@@ -1211,15 +1211,15 @@
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% •¶Œ£ƒŠƒXƒg‚Ìƒ‰ƒxƒ‹‚ğ [1] ‚©‚ç m1n‚É•ÏXim n‚ğ”{Šp‚É•ÏXj
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
-\def\@biblabel#1{\inhibitglue m#1n \inhibitglue}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+% æ–‡çŒ®ãƒªã‚¹ãƒˆã®ãƒ©ãƒ™ãƒ«ã‚’ [1] ã‹ã‚‰ ï¼»1ï¼½ã«å¤‰æ›´ï¼ˆï¼» ï¼½ã‚’å€è§’ã«å¤‰æ›´ï¼‰
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
+\def\@biblabel#1{\inhibitglue ï¼»#1ï¼½ \inhibitglue}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% –{•¶‚Ì \cite ‚Å•t‚­•¶Œ£”Ô†‚ğã•t‚Ì[1]‚É•ÏXD
-% ‚ ‚í‚¹‚ÄC•¶Œ£”Ô†‚Í©“®“I‚Éƒ\[ƒg‚³‚ê‚é‚æ‚¤‚Éİ’è
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% æœ¬æ–‡ã® \cite ã§ä»˜ãæ–‡çŒ®ç•ªå·ã‚’ä¸Šä»˜ã®[1]ã«å¤‰æ›´ï¼
+% ã‚ã‚ã›ã¦ï¼Œæ–‡çŒ®ç•ªå·ã¯è‡ªå‹•çš„ã«ã‚½ãƒ¼ãƒˆã•ã‚Œã‚‹ã‚ˆã†ã«è¨­å®š
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \newcount\@minsofar
 \newcount\@min
 \newcount\@cite@temp
@@ -1248,7 +1248,7 @@
     \ifnum\@tempcnta=\@minsofar %   Number follows previous--hold on to it
       \ifx\@h@ld\relax
         \edef \@h@ld{\@citea\csname b@\@scan@copy\endcsname}%
-      \else \edef\@h@ld{\ifmmode{]`[}\else]`[\fi\csname b@\@scan@copy\endcsname}%
+      \else \edef\@h@ld{\ifmmode{]ï½[}\else]ï½[\fi\csname b@\@scan@copy\endcsname}%
       \fi
     \else \@h@ld\@citea\csname b@\@scan@copy\endcsname
           \let\@h@ld\relax
@@ -1261,12 +1261,12 @@
   \,$^{\hbox{\scriptsize{[{\multiply\@highpenalty 3 #1% % triple-highpenalties within
       \if@tempswa,\penalty\@highpenalty\ #2\fi % and before note.
     }]\spacefactor\@m}}}$}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% –{•¶‚Æ“¯‚¶‘å‚«‚³‚Å•¶Œ£”Ô†‚ğ•\¦‚·‚éƒRƒ}ƒ“ƒh
-% i–{—ˆ‚Ì \cite ƒRƒ}ƒ“ƒhj‚ğ \tcite ‚Æ‚µ‚Ä’è‹`
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% æœ¬æ–‡ã¨åŒã˜å¤§ãã•ã§æ–‡çŒ®ç•ªå·ã‚’è¡¨ç¤ºã™ã‚‹ã‚³ãƒãƒ³ãƒ‰
+% ï¼ˆæœ¬æ¥ã® \cite ã‚³ãƒãƒ³ãƒ‰ï¼‰ã‚’ \tcite ã¨ã—ã¦å®šç¾©
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \def\@tcitex[#1]#2{%
   \let\@tcitea\@empty
   \@tcite{\@for\@tciteb:=#2\do
@@ -1278,58 +1278,58 @@
         \@latex@warning
           {Citation `\@tciteb' on page \thepage \space undefined}}%
         {\hbox{\csname b@\@tciteb\endcsname}}}}{#1}}
-\def\@tcite#1#2{\inhibitgluem{#1\if@tempswa , #2\fi}n\inhibitglue}
+\def\@tcite#1#2{\inhibitglueï¼»{#1\if@tempswa , #2\fi}ï¼½\inhibitglue}
 \DeclareRobustCommand\tcite{\unskip
   \@ifnextchar [{\@tempswatrue\@tcitex}{\@tempswafalse\@tcitex[]}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ‹r’‚ğ i’ 1j ‚Æ‚¢‚¤ƒXƒ^ƒCƒ‹‚É‚·‚é
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% è„šæ³¨ã‚’ ï¼ˆæ³¨ 1ï¼‰ ã¨ã„ã†ã‚¹ã‚¿ã‚¤ãƒ«ã«ã™ã‚‹
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \let\footnotes@ve=\footnote
 \def\footnote{\inhibitglue\footnotes@ve}
-\def\@makefnmark{\hbox{\@textsuperscript{\normalfonti’\kern0.1em\@thefnmarkj}
+\def\@makefnmark{\hbox{\@textsuperscript{\normalfontï¼ˆæ³¨\kern0.1em\@thefnmarkï¼‰}
 }}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Ø–¾I‚è‚Ì‹L†‚Ì’è‹` (\QED)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% è¨¼æ˜çµ‚ã‚Šã®è¨˜å·ã®å®šç¾© (\QED)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \usepackage{amssymb}
 \def\QED{{\unskip\nobreak\hfil\penalty50
  \hskip1zw\hbox{}\nobreak\hfil \hbox{$\Box$\hskip1zw}
  \parfillskip\z@ \finalhyphendemerits\z@\par}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ŠÂ‹«‚Æ‚µ‚Äu’è‹`vCu’è—vCuŒnvCu–½‘èvCu•â•’è—vu‰¼’èv‚ğ—pˆÓ
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
-\newtheorem{definition}{’è‹`}[chapter]
-\newtheorem{theorem}{’è—}[chapter]
-\newtheorem{corollary}{Œn}[chapter]
-\newtheorem{proposition}{–½‘è}[chapter]
-\newtheorem{lemma}{•â•’è—}[chapter]
-\newtheorem{assumption}{‰¼’è}[chapter]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+% ç’°å¢ƒã¨ã—ã¦ã€Œå®šç¾©ã€ï¼Œã€Œå®šç†ã€ï¼Œã€Œç³»ã€ï¼Œã€Œå‘½é¡Œã€ï¼Œã€Œè£œåŠ©å®šç†ã€ã€Œä»®å®šã€ã‚’ç”¨æ„
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
+\newtheorem{definition}{å®šç¾©}[chapter]
+\newtheorem{theorem}{å®šç†}[chapter]
+\newtheorem{corollary}{ç³»}[chapter]
+\newtheorem{proposition}{å‘½é¡Œ}[chapter]
+\newtheorem{lemma}{è£œåŠ©å®šç†}[chapter]
+\newtheorem{assumption}{ä»®å®š}[chapter]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ”{Špƒ_ƒbƒVƒ…‚Ì’è‹` (\--)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% å€è§’ãƒ€ãƒƒã‚·ãƒ¥ã®å®šç¾© (\--)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \def\--{\kern0pt\rule[0.33zh]{2zw}{.03zh}\kern0pt}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Ó«‚Ì‚½‚ß‚Ì–½—ß‚ğ—pˆÓ
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% è¬è¾ã®ãŸã‚ã®å‘½ä»¤ã‚’ç”¨æ„
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \def\acknowledgement{%
-\chapter*{Ó«}\addcontentsline{toc}{chapter}{Ó«}%
+\chapter*{è¬è¾}\addcontentsline{toc}{chapter}{è¬è¾}%
 \def\chaptermark##1{\markright{\hskip1zw ##1}}%
-\chaptermark{Ó«}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+\chaptermark{è¬è¾}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% JIS ƒtƒHƒ“ƒgƒƒgƒŠƒbƒN‚Ì‚½‚ß‚Ì‹Lq
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% JIS ãƒ•ã‚©ãƒ³ãƒˆãƒ¡ãƒˆãƒªãƒƒã‚¯ã®ãŸã‚ã®è¨˜è¿°
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \DeclareFontShape{JY1}{mc}{m}{n}{<-> s * [0.961] jis}{}
 \DeclareFontShape{JY1}{gt}{m}{n}{<-> s * [0.961] jisg}{}
 \DeclareFontShape{JY1}{mc}{m}{it}{<->ssub*gt/m/n}{}
@@ -1344,16 +1344,16 @@
 \DeclareFontShape{JT1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
 \DeclareFontShape{JT1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
 \DeclareFontShape{JT1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ŠeíƒXƒ^ƒCƒ‹ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+% å„ç¨®ã‚¹ã‚¿ã‚¤ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% here.sty ‚Ì“à—e‚ğæ‚è‚ñ‚¾‚à‚Ì
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚©‚ç %%%
+% here.sty ã®å†…å®¹ã‚’å–ã‚Šè¾¼ã‚“ã ã‚‚ã®
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã‹ã‚‰ %%%
 \ifx\@Hxfloat\@Hundef\else\expandafter\endinput\fi
 \let\@Hxfloat\@xfloat
 \def\@xfloat#1[{\@ifnextchar{H}{\@HHfloat{#1}[}{\@Hxfloat{#1}[}}
@@ -1362,7 +1362,7 @@
 \vskip\intextsep\vbox\bgroup\def\@captype{#1}\parindent\z@
 \ignorespaces}
 \def\end@Hfloat{\egroup\vskip \intextsep}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ‚±‚±‚Ü‚Å %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ã“ã“ã¾ã§ %%%
 \endinput
 %%
 %% End of file `thesis.cls'.

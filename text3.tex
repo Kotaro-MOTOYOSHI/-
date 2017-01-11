@@ -1,199 +1,203 @@
 %#####################################################################
-\chapter{ns-3�ɂ��OpenFlow�l�b�g���[�N�\�z}
+\chapter{ns-3によるOpenFlowネットワーク構築}
 %#####################################################################
 
-% �X�肳��̓��e
+% 森定さんの内容
 \begin{comment}
-�@�{�߂ł́C����̌����ōČ��������N�x�����\��ł��鎟��EUNET�̊T�v��ns-3�ɂ�����l�b�g���[�N�\�z�@�C�p�����[�^�ݒ�Ɋւ��Đ�������D
+　本節では，今回の研究で再現した来年度実装予定である次期EUNETの概要とns-3におけるネットワーク構築法，パラメータ設定に関して説明する．
 
-\section{EUNET�T�v}
+\section{EUNET概要}
 
-EUNET�̍\�z�ɕK�v�Ȃ͈̂��Q��w�̏�k�C�d�M�C���c�C�M���̊e�L�����p�X�ƃf�[�^�Z���^�[��ڑ�����l�b�g���[�N�i�ȍ~�uL3�T�u�l�b�g�v�j��
-�L�����p�X���̌������m��ڑ�����l�b�g���[�N�E��������ԗ�����l�b�g���[�N�i�ȍ~�u�G�b�W�l�b�g���[�N�v�j�̓��ނł���D�ȍ~�ŏڍׂȐ����ƁC�e�l�b�g���[�N�̔z�u���̐������s���D
+EUNETの構築に必要なのは愛媛大学の城北，重信，持田，樽見の各キャンパスとデータセンターを接続するネットワーク（以降「L3サブネット」）と
+キャンパス内の建物同士を接続するネットワーク・建物内を網羅するネットワーク（以降「エッジネットワーク」）の二種類である．以降で詳細な説明と，各ネットワークの配置等の説明を行う．
 
-EUNET�ɂ�����l�b�g���[�N�̍\�z���e��} \ref{EUNET�\���}} �ŕ\���C�G�b�W�l�b�g���[�N�ɂ�����@��̑�����\ \ref{�e�L�����p�X�̃l�b�g���[�N�@�퐔} �ɕ\���D
+EUNETにおけるネットワークの構築内容を図 \ref{EUNET構成図} で表し，エッジネットワークにおける機器の総数を表 \ref{各キャンパスのネットワーク機器数} に表す．
 
 \begin{figure}[tb]
 \begin{center}
-\scalebox{0.7}{\includegraphics{�l�b�g���[�N�\���}.eps}} 
-\caption{EUNET�\���}}
-\label{EUNET�\���}}
+\scalebox{0.7}{\includegraphics{ネットワーク構成図.eps}} 
+\caption{EUNET構成図}
+\label{EUNET構成図}
 \end{center}
 \end{figure}
 
 \begin{table}[tb]
 \begin{center}
-\caption{�e�L�����p�X�̃l�b�g���[�N�@�퐔}
-\label{�e�L�����p�X�̃l�b�g���[�N�@�퐔}
+\caption{各キャンパスのネットワーク機器数}
+\label{各キャンパスのネットワーク機器数}
 \begin{tabular}{c|c|c|c} 
 \hline \hline
-�L�����p�X�� & L3�X�C�b�` & L2�X�C�b�` & �����A�N�Z�X�|�C���g \\ 
+キャンパス名 & L3スイッチ & L2スイッチ & 無線アクセスポイント \\ 
 \hline 
-��k & 26 & 180 & 167 \\
-�d�M & 12 & 90 & 60 \\
-�M�� & 8 & 44 & 68 \\
-���c & 4 & 10 & 13 \\
+城北 & 26 & 180 & 167 \\
+重信 & 12 & 90 & 60 \\
+樽見 & 8 & 44 & 68 \\
+持田 & 4 & 10 & 13 \\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 
-\subsection{L3�T�u�l�b�g}
-L3�i���C��3�j�X�C�b�`�i�ȍ~�u�R�A�X�C�b�`�v�j�Q�C����сC���ɐ�������X�[�p�[�R�A����\������鈤�Q��w�̊e�L�����p�X��ڑ�����l�b�g���[�N�D\\
+\subsection{L3サブネット}
+L3（レイヤ3）スイッチ（以降「コアスイッチ」）群，および，次に説明するスーパーコアから構成される愛媛大学の各キャンパスを接続するネットワーク．\\
 
-\subsubsection{�R�A�X�C�b�`}
+\subsubsection{コアスイッチ}
 
-�f�[�^�Z���^�C��k�C�d�M�C�M���C���c�̊e�L�����p�X�ɐݒu����C�e�L�����p�X��10Gbps2����ɂ��ڑ����s���Ă���D
-�R�A�X�C�b�`�Ԃ̉���ڑ��͂��̏璷�ڑ��ōs���C�����I�ɓ�d���i2����ɂ��璷�ڑ��j���C���v20Gbps�̉���e�ʂ��������č\�z���Ă���D
-�\�z�̍ہC����̉���ɏ�Q���������Ă�10Gbps�̉���e�ʂ��ێ��ł���悤�ɂȂ�D
-�R�A�X�C�b�`�͔F�؋@�\�������C�F�؂��ꂽ�@��Ƃ̂ݒʐM���s���D\\
-
-
-\subsubsection{�X�[�p�[�R�A}
-
-L3�T�u�l�b�g�̒��j�𐬂��l�b�g���[�N�@��Q�D���Q��w�l�b�g���[�N�ƃC���^�[�l�b�g�Ƃ̐ڑ��_�D�t�@�C�A�E�H�[���C���u�Q�[�g�E�F�C�C�N���h��V�X�e���iIPS�j�C�Z�L���A�Q�[�g�E�F�C�̋@�\�����D
-%�X�[�p�[�R�A�ɐݒu�����t�@�C�A�E�H�[����UDP�ʐM�ɑ΂��āC�X�e�[�g�t���p�P�b�g�C���X�y�N�V�����iSPI�j�C����сC�A�v���P�[�V�������C���[�p�P�b�g�C���X�y�N�V�����iALPI�j�Ɠ����ȏ�̋@�\������Ă���D
-%�����ăp�P�b�g�C���X�y�N�V�����̓����Z�b�V��������1,000,000 �ȏ�ł���D
-%���u�Q�[�g�E�F�C�̃l�b�g���[�N�ւ̐ڑ���10Gbps �ȏ�̒ʐM�K�i��L�������ōs���C��Q�����������ꍇ�ł��C���펞�̔����ȏ�̐��\���ێ��ł���璷�\���ƂȂ��Ă���D
-%�N���h��V�X�e���͑S�Ă�VLAN�̃g���q�b�N�𓯎��ɊĎ�����@�\��L���Ă���D
-%�Z�L���A�Q�[�g�E�F�C�́C�F�؏��Ɋ�ĊO������EUNET�����ɃA�N�Z�X����@�\������Ă���C�����ڑ��\�ȃZ�b�V������10,000�ȏ�ł���D�O������̐ڑ����s���ꍇ�CIPsec�������h�~�@�\�������D
-
-�t�@�C�A�E�H�[���@��͂����ɐݒu����C�s���ڑ�������s���D�����Č��u�Q�[�g�E�F�C�������C�ʉ߂���g���q�b�N�ɑ΂��ăf�B�[�v�p�P�b�g�C���X�y�N�V�����ɂ��C�E�B���X�C���[���C�g���C�̖ؔn�C�A�v���P�[�V�����A�^�b�N�C�o�b�t�@�I�[�o�[�t���[�C�X�p�C�E�F�A�ȂǏ��l�b�g���[�N��̏��V�X�e���Ɉ��e����^����\����������̂ɂ��ĎՒf���s���@�\�������D\\
+データセンタ，城北，重信，樽見，持田の各キャンパスに設置され，各キャンパスは10Gbps2回線により接続が行われている．
+コアスイッチ間の回線接続はこの冗長接続で行われ，物理的に二重化（2回線による冗長接続）し，合計20Gbpsの回線容量を持たせて構築している．
+構築の際，一方の回線に障害が発生しても10Gbpsの回線容量を維持できるようになる．
+コアスイッチは認証機能を持ち，認証された機器とのみ通信を行う．\\
 
 
-\subsection{�G�b�W�l�b�g���[�N}
-�G�b�W�l�b�g���[�N�͊e�L�����p�X���ɑ��݂��錚������ԗ����C���[�U���g�p����[����EUNET�ɐڑ��ł���悤�ɂ���l�b�g���[�N�ł���D
-�G�b�W�l�b�g���[�N�ɂ����ẮC������L3�X�C�b�`�CL2�X�C�b�`�C�A�N�Z�X�|�C���g�����ݐڑ�����Ă���C�e�@��̐�Ƀz�X�g��ڑ����鎖�ŗL���E���������݂��������\�������D
+\subsubsection{スーパーコア}
 
-% \subsubsection{�����A�N�Z�X�|�C���g}
+L3サブネットの中核を成すネットワーク機器群．愛媛大学ネットワークとインターネットとの接続点．ファイアウォール，検疫ゲートウェイ，侵入防御システム（IPS），セキュアゲートウェイの機能を持つ．
+%スーパーコアに設置されるファイアウォールはUDP通信に対して，ステートフルパケットインスペクション（SPI），および，アプリケーションレイヤーパケットインスペクション（ALPI）と同等以上の機能を備えている．
+%加えてパケットインスペクションの同時セッション数は1,000,000 以上である．
+%検疫ゲートウェイのネットワークへの接続は10Gbps 以上の通信規格を有する回線で行い，障害が発生した場合でも，正常時の半分以上の性能を維持できる冗長構成となっている．
+%侵入防御システムは全てのVLANのトラヒックを同時に監視する機能を有している．
+%セキュアゲートウェイは，認証情報に基いて外部からEUNET内部にアクセスする機能を備えており，同時接続可能なセッションは10,000以上である．外部からの接続を行う場合，IPsec等盗聴防止機能を備える．
 
-% �����A�N�Z�X�|�C���g��p
+ファイアウォール機器はここに設置され，不正接続制御を行う．加えて検疫ゲートウェイを持ち，通過するトラヒックに対してディープパケットインスペクションにより，ウィルス，ワーム，トロイの木馬，アプリケーションアタック，バッファオーバーフロー，スパイウェアなど情報ネットワーク上の情報システムに悪影響を与える可能性があるものについて遮断を行う機能を備える．\\
 
-\section{�l�b�g���[�N�\�z�菇}
 
-ns3��p�����l�b�g���[�N�̍\�z�Ɋւ���������s���D
-����̌����ł́Cns3�ɗp�ӂ���Ă��郁�\�b�h��g�ݍ��킹�C�K�v�ȋ@�\�𖞂����N���X���쐬���C�g�ݍ��킹�邱�ƂŊe�l�b�g���[�N�@���\�����C�l�b�g���[�N�\�z���s���D
+\subsection{エッジネットワーク}
+エッジネットワークは各キャンパス内に存在する建物等を網羅し，ユーザが使用する端末がEUNETに接続できるようにするネットワークである．
+エッジネットワークにおいては，複数のL3スイッチ，L2スイッチ，アクセスポイントが相互接続されており，各機器の先にホストを接続する事で有線・無線が混在した環境が構成される．
+
+% \subsubsection{無線アクセスポイント}
+
+% 無線アクセスポイントを用
+
+\section{ネットワーク構築手順}
+
+ns3を用いたネットワークの構築に関する説明を行う．
+今回の研究では，ns3に用意されているメソッドを組み合わせ，必要な機能を満たすクラスを作成し，組み合わせることで各ネットワーク機器を表現し，ネットワーク構築を行う．
 
 \begin{figure}[bt]
 \begin{center}
-\scalebox{0.5}[0.5]{\includegraphics{�N���X�p���}.eps}} 
-\caption{�N���X�p���}}
-\label{�N���X�p���}}
+\scalebox{0.5}[0.5]{\includegraphics{クラス継承図.eps}} 
+\caption{クラス継承図}
+\label{クラス継承図}
 \end{center}
 \end{figure}
 
-�e�N���X�̌p���֌W�͐} \ref{�N���X�p���}} �̂悤�ɂȂ��Ă���D
-���ɁC�e�N���X�̋@�\�ɂ��Đ������Ă����D\\
+各クラスの継承関係は図 \ref{クラス継承図} のようになっている．
+次に，各クラスの機能について説明していく．\\
 
-\subsection{EUNET�\�z�̂��߂̃N���X}
-�����ł́CEUNET�̃V�~�����[�V�������f���쐬�ɗ��p����e�N���X�̓�����������D
-���ۂ̃R�[�h�͕t�^�Q�ƁD
+\subsection{EUNET構築のためのクラス}
+ここでは，EUNETのシミュレーションモデル作成に利用する各クラスの動作を説明する．
+実際のコードは付録参照．
 
 \subsubsection{CsmaNode}
 
-CsmaNode�N���X��ns3�ɗp�ӂ���Ă���node�N���X���p�����Ă���D�e�f�o�C�X�̂��߂̃m�[�h���쐬���C�V�~�����[�^�ɂ����郍�O�̏o�͂Ɋւ���݌v���s���D
-���ɁC���g�̍쐬�����m�[�h�̎�ނ𔻕ʂ��C�o�͂��邱�Ƃ��\�D
+CsmaNodeクラスはns3に用意されているnodeクラスを継承している．各デバイスのためのノードを作成し，シミュレータにおけるログの出力に関する設計を行う．
+他に，自身の作成したノードの種類を判別し，出力することが可能．
 
-���O�́C�V�~�����[�V�������ʂ���ׂ�����ޕ�������ďo�͂����D
-�傫�������āC���M�O�̒[����Ŕ�������TCP/IP�̊e�w�ɂ�����f�[�^�̎󂯓n���Ɋւ��郍�O�C
-�����p��������M�Ŕ��������p�P�b�g���X��`���x���Ɋւ��郍�O�C
-��M���̒[���Ŕ�������TCP/IP�̊e�w�ɂ�����f�[�^�̎󂯓n���Ɋւ��郍�O�̎O�����݂���D\\
+ログは，シミュレーション結果から細かく種類分けされて出力される．
+大きく分けて，送信前の端末上で発生したTCP/IPの各層におけるデータの受け渡しに関するログ，
+回線を用いた送受信で発生したパケットロスや伝送遅延に関するログ，
+受信側の端末で発生したTCP/IPの各層におけるデータの受け渡しに関するログの三つが存在する．\\
 
 \subsubsection{CsmaChannelNode}
 
-CsmaChannelNode�N���X��CsmaNode�N���X���p�����C�m�[�h�Ԃ̐ڑ��Ɋւ���ݒ���s���D
-����̃p�����[�^�Ƃ��ăf�[�^�]�����x�C�x�����Ԃ�ݒ���s���C�m�[�h�i�[���j�ɑ΂��ĕʂ̒[����ڑ����s��bring�@�\��\������D\\
+CsmaChannelNodeクラスはCsmaNodeクラスを継承し，ノード間の接続に関する設定を行う．
+回線のパラメータとしてデータ転送速度，遅延時間を設定を行い，ノード（端末）に対して別の端末を接続を行うbring機能を表現する．\\
 
 \subsubsection{CsmaInternetNode}
 
-CsmaInternetNode��CsmaChannelNode���p�����CEUNET�ɂ�����[���iPC�j�̃C���^�[�l�b�g�ڑ��Ɋւ���ݒ���s���C�[�����C���^�[�l�b�g��p�����f�[�^�̑���M�Ɋւ���ݒ���s���D
-����̃V�~�����[�V�������f���\�z�ł́CIPv4��p�����C���^�[�l�b�g�ւ̐ڑ��݂̂��s���CIPv6�Ɋւ��Ă͍\�z���s��Ȃ��D
+CsmaInternetNodeはCsmaChannelNodeを継承し，EUNETにおける端末（PC）のインターネット接続に関する設定を行い，端末がインターネットを用いたデータの送受信に関する設定を行う．
+今回のシミュレーションモデル構築では，IPv4を用いたインターネットへの接続のみを行い，IPv6に関しては構築を行わない．
 
-ns3��ŃC���^�[�l�b�g�ւ̐ڑ���\������ꍇ�Cns3�ɗp�ӂ���Ă���internet-module�N���X��p����K�v������C
-���̃N���X��p���鎖�ŊePC�[����\������m�[�h�ɑ΂���IPv4�̃A�h���X���蓖�ē��C�C���^�[�l�b�g�֐ڑ�����ۂɕK�v�ȋ@�\�̐ݒ���s���D\\
+ns3上でインターネットへの接続を表現する場合，ns3に用意されているinternet-moduleクラスを用いる必要があり，
+このクラスを用いる事で各PC端末を表現するノードに対してIPv4のアドレス割り当て等，インターネットへ接続する際に必要な機能の設定を行う．\\
 
 \subsubsection{PacketSinkNode}
 
-PacketSinkNode�N���X��CsmaInterNetNode�N���X���p�����C�m�[�h���󂯎�����p�P�b�g�̉�́E�����Ɋւ���ݒ���s���D
+PacketSinkNodeクラスはCsmaInterNetNodeクラスを継承し，ノードが受け取ったパケットの解析・処理に関する設定を行う．
 
-�m�[�h�ɂ�����IP�A�h���X�ƃ|�[�g�ԍ���p���ăp�P�b�g�̎�M���s���D��M�����p�P�b�g�̃T�C�Y�E���M���̃A�h���X���s���D
-�V�~�����[�V�����ł͕s���ȃA�h���X����̃p�P�b�g�󂯎��͍l�����Ȃ����߁C�V�~�����[�V�����J�n�O�ɑS�Ă̒[����c�����Ă���Ɖ��肵�Ă���D\\
+ノードにおけるIPアドレスとポート番号を用いてパケットの受信を行い．受信したパケットのサイズ・送信元のアドレスを行う．
+シミュレーションでは不明なアドレスからのパケット受け取りは考慮しないため，シミュレーション開始前に全ての端末を把握していると仮定している．\\
 
 \subsubsection{OnOffNode}
 
-OnOffNode�N���X��PacketSink�N���X���p�����C�m�[�h������[���ɑ΂��g���q�b�N�𐶐�����@�\��t������D
+OnOffNodeクラスはPacketSinkクラスを継承し，ノードが宛先端末に対しトラヒックを生成する機能を付加する．
 
-���̃N���X���p�����C�p�P�b�g�̑��M���s���悤�ݒ肳�ꂽ�[���́C�V�~�����[�V�����J�n���ォ��I���̓��͂��s����܂Őݒ肳�ꂽ����܂Ńg���q�b�N�𐶐�����D
-���M����p�P�b�g�̓I�����ԂƃI�t���Ԃ̃����_���ϐ����琶������C�I����Ԃ̏ꍇ�Ɏw�肳�ꂽ�f�[�^���[�g�ƃp�P�b�g�T�C�Y�ɏ]�����p�P�b�g�ƂȂ�D
-���̃N���X�܂ł��p�����鎖�ŃV�~�����[�^��ł̒[���Ƃ��Ă̊�{�I�ȓ�����s�������\�ɂȂ�D\\
+このクラスを継承し，パケットの送信を行うよう設定された端末は，シミュレーション開始直後から終了の入力が行われるまで設定された宛先までトラヒックを生成する．
+送信するパケットはオン時間とオフ時間のランダム変数から生成され，オン状態の場合に指定されたデータレートとパケットサイズに従ったパケットとなる．
+このクラスまでを継承する事でシミュレータ上での端末としての基本的な動作を行う事が可能になる．\\
 
 \subsubsection{EunetTerminal}
 
-EunetTerminal�N���X��OnOffNode�N���X���p�����CEUNET�ɂ�����[���̓������L�q���邽�߂ɗp�ӂ����N���X�ł���D
-�[���쐬���ɐڑ����ꂽ�[�������邩����������D\\
+EunetTerminalクラスはOnOffNodeクラスを継承し，EUNETにおける端末の特徴を記述するために用意したクラスである．
+端末作成時に接続された端末があるかを検査する．\\
 
 \subsubsection{EunetTerminals}
 
-EunetTerminals�N���X��ns3�ɗp�ӂ���Ă���NodeContainer�N���X���p�����CEUNET�ɂ�����[���𕡐��쐬�C�A�h���X�̊��蓖�ē����s���D
-���̃N���X��p���č쐬���ꂽ�[���́CIPv4�A�h���X�����蓖�Ă��C�w�肵���[�����m�̐ڑ����s���@�\�����D\\
+EunetTerminalsクラスはns3に用意されているNodeContainerクラスを継承し，EUNETにおける端末を複数作成，アドレスの割り当て等を行う．
+このクラスを用いて作成された端末は，IPv4アドレスを割り当てられ，指定した端末同士の接続を行う機能を持つ．\\
 
 \subsubsection{SimpleSwitch}
 
-SimpleSwitch�N���X��CsmaChannelNode�N���X���p�����CL2�X�C�b�`�Ƃ��Ă̋@�\��\������D
+SimpleSwitchクラスはCsmaChannelNodeクラスを継承し，L2スイッチとしての機能を表現する．
 
-�@��Ƃ̐ڑ����s���C���̍ۉ�����x�C�x�����Ԃ��ʂɐݒ肷�鎖���\�D������x�ƒx�����Ԃɂ��@��̐��\��\������D
-L2�X�C�b�`���m�ł̐ڑ��CL3�X�C�b�`�Ƃ̐ڑ����s�����Ƃ��\�D
-�|�[�g�����w�肷�鎖���\�ŁC�|�[�g�����w�肵�C�d�l���Ɋ�Â��Đڑ����s�����Ƃ�EUNET���Č����Ă����D\\
+機器との接続を行い，その際回線速度，遅延時間を個別に設定する事が可能．回線速度と遅延時間により機器の性能を表現する．
+L2スイッチ同士での接続，L3スイッチとの接続を行うことも可能．
+ポート数を指定する事も可能で，ポート数を指定し，仕様書に基づいて接続を行うことでEUNETを再現していく．\\
 
 \subsubsection{EunetSwitch}
 
-EunetSwitch�N���X��SimpleSwitch�N���X���p�����CEUNET�ɂ�����X�C�b�`�̓������L�q���邽�߂ɗp�ӂ����N���X�ł���D
-�X�C�b�`�ɂ�����g���[�X�t�@�C���̏o�͂͂����ŕ\�������D�g���[�X�t�@�C����L2�X�C�b�`�ɂ�����e�|�[�g�Ɍʐݒ���s�����Ƃ��\�ŁC�w�肵���|�[�g�Ɋւ��Ă̂݃t�@�C���o�͂��s����悤�ɂȂ��Ă���D
-�|�[�g���̂Ƀt�@�C���o�͋@�\��t�����鎖���ł��Ȃ��̂ŁCL2�X�C�b�`�쐬���ɋ󂫃|�[�g�ɂ�PacketSink�A�v���P�[�V������������EunetTerminal�N���X�Œ�`�����[�����쐬���C�����Ńp�P�b�g�Ɋւ��郍�O���擾����D\\
+EunetSwitchクラスはSimpleSwitchクラスを継承し，EUNETにおけるスイッチの特徴を記述するために用意したクラスである．
+スイッチにおけるトレースファイルの出力はここで表現される．トレースファイルはL2スイッチにおける各ポートに個別設定を行うことが可能で，指定したポートに関してのみファイル出力が行えるようになっている．
+ポート自体にファイル出力機能を付加する事ができないので，L2スイッチ作成時に空きポートにはPacketSinkアプリケーションを持ったEunetTerminalクラスで定義した端末を作成し，そこでパケットに関するログを取得する．\\
 
 \subsubsection{EunetSwitches}
 
-EunetSwitches�N���X��ns3�ɂ���NodeContainer�N���X���p�����CEUNET���Č����邽�߂�n���؂̂悤�Ȍ`��EunetSwitch�N���X�ŕ\������Ă���L2�X�C�b�`��ڑ����Ă����N���X�ł���D\\
-�����Ƃ��Đ[���C�����w�肷�鎖�Ŗ؍\���I��L2�X�C�b�`�𕡐��쐬���鎖���\�D
+EunetSwitchesクラスはns3にあるNodeContainerクラスを継承し，EUNETを再現するためにn分木のような形にEunetSwitchクラスで表現されているL2スイッチを接続していくクラスである．\\
+引数として深さ，幅を指定する事で木構造的にL2スイッチを複数作成する事が可能．
 
 
 \subsubsection{NamedSwitches}
 
-NamedSwitches�N���X��EunetSwitches�N���X���p�����C�X�C�b�`�ɖ��O��t���鎖���\�Ƃ���N���X�ŁC�X�C�b�`��IP�A�h���X���ł͂Ȃ��C���O�ŊǗ����鎖���\�ƂȂ�D\\
-EunetSwitch�N���X�ŕ\�������X�C�b�`���܂߁C�S�Ẵm�[�h�̓V�~�����[�^��ł̓g�|���W�̍쐬���ɍs����ԍ��t���ɂ��Ǝ��̒ʂ��ԍ��ŊǗ�����邪�C�f�o�C�X�̍쐬���ɔԍ����t�����邾���ł���C����̓g�|���W���쐬���Ȃ��������ŕύX����Ă��܂��D
-���̂��ߐl�Ԃ���ӂɒ[�����w�肷�鎖������C�V�i���I���쐬���鎖������ł���̂ŁCEunetSwitch�ɖ��O�t����Ԃ�p�ӂ��C�w�肵�����O�����X�C�b�`���쐬�\�ɂ����D
-���̃N���X�ɂ���ċL�q���ꂽ�X�C�b�`�́C�V�~�����[�^��ł��̖��O���g���Ďw�肷�鎖���o���邾���łȂ��C���O�̏o�͂ɂ����O��\�����鎖���o����D\\
+NamedSwitchesクラスはEunetSwitchesクラスを継承し，スイッチに名前を付ける事を可能とするクラスで，スイッチをIPアドレス等ではなく，名前で管理する事が可能となる．\\
+EunetSwitchクラスで表現されるスイッチを含め，全てのノードはシミュレータ上ではトポロジの作成時に行われる番号付けにより独自の通し番号で管理されるが，デバイスの作成順に番号が付けられるだけであり，これはトポロジを作成しなおすだけで変更されてしまう．
+そのため人間が一意に端末を指定する事が難しく，シナリオを作成する事が困難であるので，EunetSwitchに名前付け空間を用意し，指定した名前を持つスイッチを作成可能にした．
+このクラスによって記述されたスイッチは，シミュレータ上でその名前を使って指定する事が出来るだけでなく，ログの出力にも名前を表示する事が出来る．\\
 
 \subsubsection{SimpleRouter}
 
-CsmaChannelNode�N���X���p�����C��ʓI�ȃ��[�^��\������D
-���̃N���X�ł�DCE��p����Quagga�f�[�����𗘗p���C���ۂɗ��p����郋�[�`���A���S���Y�����g�p���郋�[�^��\������D
-���̃A���S���Y���́C�V�~�����[�V���������ŏ������s���D
+CsmaChannelNodeクラスを継承し，一般的なルータを表現する．
+このクラスではDCEを用いてQuaggaデーモンを利用し，実際に利用されるルーチンアルゴリズムを使用するルータを表現する．
+このアルゴリズムは，シミュレーション内部で処理を行う．
 
-���[�^�ɐڑ������[���ւ̉�����x�ƒx���C�ڑ��|�[�g�̊Ǘ��CIPv4�ł̃p�P�b�g���[�`���O�̐ݒ蓙���s���D
-�����Őݒ���s�������[�^�ɐڑ����ꂽ�[�����瑗�M�����p�P�b�g�́CQuagga�f�[�����Ɋ�Â��Ď��ۂ̃p�P�b�g�Ɠ��l�ɏ��������D\\
+ルータに接続される端末への回線速度と遅延，接続ポートの管理，IPv4でのパケットルーチングの設定等を行う．
+ここで設定を行ったルータに接続された端末から送信されるパケットは，Quaggaデーモンに基づいて実際のパケットと同様に処理される．\\
 
 \subsubsection{EunetRouter}
 
-SimpleRouter�N���X���p�����CEUNET�ɂ����Ďg�p����郋�[�^�̐ݒ���L�q���邽�߂̃N���X�ł���D\\
+SimpleRouterクラスを継承し，EUNETにおいて使用されるルータの設定を記述するためのクラスである．\\
 \end{comment}
 
-% �����̓��e
-�{�߂ł́C����̌����Œ�Ă���OpenFlow��p�����l�b�g���[�N�\�z�@�ɂ��Đ�������B
+% 自分の内容
+　本節では，今回の研究で提案するOpenFlowを用いたネットワークモデルの構築法について説明する。
 
-\subsection{EUNET}
+\section{EUNET}
 
-���݁A���Q��w�ł�EUNET�ƌĂ΂��l�b�g���[�N���ғ����Ă���B
-EUNET�͑傫��������ƁA���Q��w�̏�k�A�d�M�A�M���A���c�̊e�L�����p�X�ƃf�[�^�Z���^��ڑ�����L3�T�u�l�b�g�ƁA�L�����p�X����ԗ�����G�b�W�l�b�g���[�N�̓��ނ�����B
+現在、愛媛大学ではEUNETと呼ばれるネットワークが稼働している。
+EUNETは大きく分けると、愛媛大学の城北、重信、樽味、持田の各キャンパスとデータセンタを接続するL3サブネットと、キャンパス内を網羅するエッジネットワークの二種類がある。
 
-����̎�@�͎��L3�T�u�l�b�g�Ɋւ�����̂ł��邽�߁A�ȍ~��L3�T�u�l�b�g�̏ڍׂȐ������s���B
+今回の手法は主にL3サブネットに関するものであるため、以降にL3サブネットの詳細な説明を行う。
 
-\subsubsection{L3�T�u�l�b�g}
+\subsection{L3サブネット}
 
 
 
-\subsection{�X�[�p�[�R�A}
+\subsection{スーパーコア}
 
-���Q��w�ō̗p���Ă���EUNET�̒��j�𐬂��l�b�g���[�N�Q�B
-�w���l�b�g���[�N�ƃC���^�[�l�b�g�Ƃ̐ڑ��_
+愛媛大学で採用しているEUNETの中核を成すネットワーク群。
+学内ネットワークとインターネットとの接続点
+
+\section{ネットワークモデル構築法}
+
+本研究では、上記の問題点があるスーパーコアを改善したネットワークモデルを構築する。

@@ -1,165 +1,177 @@
 %#####################################################################
-\chapter{�l�b�g���[�N���f���̓���m�F}
+\chapter{OpenFlowを用いたネットワークモデルの動作検証}
 %#####################################################################
 
-% �X�肳��̓��e
+% 森定さんの内容
 \begin{comment}
-�@�{�����ł́C�V�~�����[�V�����ɂ����ns-3���EUNET���\�z���C�V�~�����[�V�������s�����Ƃ�ړI�Ƃ��Ă���D
-�V�~�����[�V�����́C���ۂ�EUNET�����f�������č\�z������Ńp�P�b�g���L���v�`�����鎖�Ő��\��]�����鎖���ł���悤�ɂȂ�D
+　本研究では，シミュレーションによってns-3上でEUNETを構築し，シミュレーションを行うことを目的としている．
+シミュレーションは，実際のEUNETをモデル化して構築した上でパケットをキャプチャする事で性能を評価する事ができるようになる．
 
-�{�͂ł́CEUNET���Č����邽�߂ɍ쐬�������W���[�����ǂ̂悤�ɗ��p���ăg�|���W���\�z���C����m�F���s�������������D\\
+本章では，EUNETを再現するために作成したモジュールをどのように利用してトポロジを構築し，動作確認を行ったか解説する．\\
 
-\section{�e���W���[���̓���m�F}
+\section{各モジュールの動作確認}
 
-�{�����ł�3�͂Ő��������悤��ns-3��Ń��W���[����C++�ŋL�q���鎖�ɂ��쐬���Ă���C���̃��W���[���̑g�ݍ��킹�ňӐ}����l�b�g���[�N���\�z���Ă����D
-���̂��ߑO������Ƃ��āC�e���W���[��������ɓ��삷�鎖�����߂���D
-�����ŁC�쐬�������W���[����p���ĒP���ȃl�b�g���[�N���\�����C���̃l�b�g���[�N�ł̃p�P�b�g�̐U�镑�������؂��鎖�Ń��W���[��������ɓ��삵�Ă��邩���m�F�����D\\
-���̍ێg�p�����e�X�g�R�[�h��������C���̌��ʂ������D���ۂɎg�p�����e�X�g�R�[�h�͕t�^�Q�ƁD
+本研究では3章で説明したようにns-3上でモジュールをC++で記述する事により作成しており，そのモジュールの組み合わせで意図するネットワークを構築していく．
+そのため前提条件として，各モジュールが正常に動作する事が求められる．
+そこで，作成したモジュールを用いて単純なネットワークを構成し，そのネットワークでのパケットの振る舞いを検証する事でモジュールが正常に動作しているかを確認した．\\
+その際使用したテストコードを解説し，その結果を示す．実際に使用したテストコードは付録参照．
 
-\subsection{EunetTest�ɂ�����e�X�g�V�i���I}
+\subsection{EunetTestにおけるテストシナリオ}
 
-����m�F���s���l�b�g���[�N�@��͒[���CL2�X�C�b�`�CL3�X�C�b�`��3�ł���D���̋@���p���ăl�b�g���[�N���\������D
-�[����UDP�ŒʐM�������Ȃ��Ă���C�p�P�b�g���X���������ꍇ�͍đ����s��Ȃ��D
-
-\begin{figure}[tb]
-\begin{center}
-\scalebox{0.6}{\includegraphics{testsuit�\���}.eps}} 
-\caption{�e�X�g�V�i���I�\��}
-\label{�e�X�g�V�i���I�\��}
-\end{center}
-\end{figure}
-
-�e�X�g�ɂ�����\���́C�}\ref{�e�X�g�V�i���I�\��}�ɋL�q���Ă���D
-L3�X�C�b�`��3�쐬����D�eL3�X�C�b�`��r1�Cr2�Cr3�Ƃ������O��t���S�Ă�L3�X�C�b�`�͗אڂ��Đڑ�����Ă���D
-�e�X�g�P�[�X�ł�r1�Cr3�͈ȉ��ɕ�����L2�X�C�b�`�C�[�������D������̃G���A�Ƃ݂Ȃ��C���[�`���O���s�����Ƃ��\���m�F���s���D
-
-L2�X�C�b�`��,���G���A���ɃX�C�b�`��3���ڑ����s���D�G���A1�ɂ�����X�C�b�`��s11�Cs12�Cs13�C�G���A2�ɂ�����L2�X�C�b�`��s21�Cs22�Cs23�Ɩ��Â���D���̎�L2�X�C�b�`��2�K�w��2���؂ł���Cs11�Cs21�͖؂̍������ƂȂ�D
-������s11�Cs21��L3�X�C�b�`�ł���r1�Cr2�ɂ��ꂼ��ڑ�����D�eL2�X�C�b�`�ɂ�7�̃|�[�g������CL3�X�C�b�`�����L2�X�C�b�`�ɐڑ����Ă��Ȃ��|�[�g�ɂ͒[�����ڑ�����Ă���DPacketSink�COnOff�A�v���P�[�V���������D\\
-
-L3�X�C�b�`��L2�X�C�b�`�̐ڑ��ł͉�����x��10Gbps�ɁCL2�X�C�b�`�ƒ[���CL2�X�C�b�`���m�̐ڑ��ł͉�����x��1Gbps�ɐݒ肵�Ă���D
-����̃e�X�g�V�i���I�ł́C3�̓���m�F���s���D
-��ڂ̓���m�F�̓G���A1�ɂ����āC�X�C�b�`��3�o�R���ăp�P�b�g�̑���M���s���[���̓���m�F�ł���D
-s13���̒[���ł���t133��s12���̒[��t125�փp�P�b�g�𑗐M����D������t133�̑��M�p�P�b�g����t125�̎�M�p�P�b�g�����r���C�S�Ẵp�P�b�g����M�ł����̂��m�F���s���D
-
-
-��ڂ̓���m�F�͏�q�̒[���Ɋւ��铮����G���A2�ɂ����Ċm�F����D
-���M���s���̂�s22����t225�C��M��s23����t233�ł���D
-
-�O�ڂ̓���m�F�͏�L��̊m�F���ł����ꍇ�ɍs����D
-L3�X�C�b�`���o�R���Đڑ�����Ă���[���Ԃł̑���M���s���邩�m�F���s���D
-���̍ۑ��M���s���̂̓G���A1��s12���ɂ���t125�C��M���s���̂̓G���A2��s23���ɂ���t233�ł���D
-���̓���m�F�ł�r1�Cr3�̃��[�`���O�e�[�u�����쐬�����O�Ƀp�P�b�g���M���s���ƃp�P�b�g���X�������Ă��܂����߁Ct233���p�P�b�g����M���Ă��邩�̊m�F���s���D
-
-�ȏ��3�̓���m�F���s���C��ł��m�F�ł��Ȃ������ꍇ�́C�e�X�g�P�[�X�����f�����悤�ɂȂ��Ă���D
-�e�X�g�P�[�X�����s�������ʁC����I�������̂Œ[���̓���CL2�X�C�b�`�CL3�X�C�b�`�����삵�Ă���Ɣ��f�����D
-
-
-% �[�����W���[���͊eTerminal�N���X���p�����鎖�ō\������CEUNET�ɂ�����[���C���Ȃ킿�G���h���[�U�����p����PC��\������D
-% 3�͂ŉ�����s����EunetTerminal�N���X��p���ĕ\������D�[����OnOffNode�ɂċL�q���������_���Ȏ��ԃp�P�b�g�𑗐M�C���M��~���s��OnOff�A�v���P�[�V�����ƁCPacketSinkNode�ɋL�q�������g�Ɍ����đ��M���ꂽ�p�P�b�g����M����PacketSink�A�v���P�[�V���������D
-% ����Ē[�����W���[���̓���m�F���s���ꍇ�́C����2�̃A�v���P�[�V����������ɓ����Ă��邱�ƂƁC�����I�C�V�X�e���I�ɉ�����ڑ�����Ă��邱�Ƃ��m�F�ł���΂悢�D
-
-% ����̓���m�F�ɂ����ẮC2�̒[���𒼐ڐڑ����C�p�P�b�g�̑���M���s�����Ƃœ���m�F���s���C���O����͂��邱�ƂŐ���ɓ��삵�Ă���Ɗm�F�ł����D\\
-
-% \subsection{L2�X�C�b�`���W���[���̓���m�F}
-
-% L2�X�C�b�`���W���[���͊eSwitch�N���X���p�����邱�Ƃō\������CEUNET�Ŏg�p�����L2�X�C�b�`��\������D
-% 3�͂ŉ�������悤�ɁCL2�X�C�b�`�̓���̓��[�`���O�e�[�u���ɏ]���󂯎�����p�P�b�g������֑��M���鎖�ƁC�Փ˂��N����Ȃ��悤�f�[�^���ꎞ�I�Ƀo�b�t�@���邱�Ƃł���D
-% L2�X�C�b�`�̓���m�F���s���ہC�[��������ɓ��삵�Ă��邱�Ƃ��m�F�ł��Ă����̂�2�̒[�����X�C�b�`���W���[������Đڑ����C�[�����W���[����OnOff�A�v���P�[�V������PacketSink�A�v���P�[�V�����𓮍삳���C�p�P�b�g�𑗎�M�����邱�Ƃœ���m�F���s�����D
-
-% ���،��ʂƂ��āC�p�P�b�g�̑���M���ł��Ă����̂Ő���ɓ��삵�Ă���Ɣ��f�����D
-
-\subsection{L3�X�C�b�`���W���[���̓���m�F}
-
-L3�X�C�b�`�̃��[�`���O�A���S���Y����DCE�𗘗p��Quagga�f�[�������g�p����D�{�����ł́CL3�X�C�b�`��OSPFv2�ɂ��o�H�����������Ă���D�O�q�̓���m�F�̂��߂̃e�X�g�V�i���I�ł�PCAP�`���Ńp�P�b�g���_���v���Ă���D
-����PCAP�t�@�C�����m�F���C���[�`���O�A���S���Y���̐U�镑�������؂���D
+動作確認を行うネットワーク機器は端末，L2スイッチ，L3スイッチの3つである．この機器を用いてネットワークを構成する．
+端末はUDPで通信をおこなっており，パケットロスが生じた場合は再送を行わない．
 
 \begin{figure}[tb]
 \begin{center}
-\scalebox{0.6}{\includegraphics{���[�^����m�FHello.eps}} 
-\caption{���[�^����m�F�iHello���b�Z�[�W�j}
-\label{���[�^����m�F�iHello���b�Z�[�W�j}
+\scalebox{0.6}{\includegraphics{testsuit構成図.eps}} 
+\caption{テストシナリオ構成}
+\label{テストシナリオ構成}
 \end{center}
 \end{figure}
 
-�}\ref{���[�^����m�F�iHello���b�Z�[�W�j}��L3�X�C�b�`r1�ɂ�����PCAP�t�@�C���̈ꕔ�ł���D
-������r1�͗אڃm�[�h�ɑ΂��CHello���b�Z�[�W�ɂ�莩�g�̗אڃm�[�h��`���Ă���D
-���̎��_��r1�ɐV���ɗאڃm�[�hr4���ڑ�����Ă����ꍇ�C����Hello���b�Z�[�W���󂯎����r4��r1�̏�Ԃ�c���ł���D
+テストにおける構成は，図\ref{テストシナリオ構成}に記述している．
+L3スイッチは3つ作成する．各L3スイッチはr1，r2，r3という名前を付け全てのL3スイッチは隣接して接続されている．
+テストケースではr1，r3は以下に複数のL2スイッチ，端末を持つ．これを二つのエリアとみなし，ルーチングを行うことが可能か確認を行う．
+
+L2スイッチは,両エリア下にスイッチを3つずつ接続を行う．エリア1におけるスイッチはs11，s12，s13，エリア2におけるL2スイッチはs21，s22，s23と名づける．この時L2スイッチは2階層の2分木であり，s11，s21は木の根部分となる．
+そしてs11，s21はL3スイッチであるr1，r2にそれぞれ接続する．各L2スイッチには7つのポートがあり，L3スイッチおよびL2スイッチに接続していないポートには端末が接続されており．PacketSink，OnOffアプリケーションを持つ．\\
+
+L3スイッチとL2スイッチの接続では回線速度が10Gbpsに，L2スイッチと端末，L2スイッチ同士の接続では回線速度を1Gbpsに設定している．
+今回のテストシナリオでは，3つの動作確認を行う．
+一つ目の動作確認はエリア1において，スイッチを3つ経由してパケットの送受信を行う端末の動作確認である．
+s13下の端末であるt133がs12下の端末t125へパケットを送信する．そしてt133の送信パケット数とt125の受信パケット数を比較し，全てのパケットが受信できたのか確認を行う．
+
+
+二つ目の動作確認は上述の端末に関する動作をエリア2において確認する．
+送信を行うのはs22下のt225，受信はs23下のt233である．
+
+三つ目の動作確認は上記二つの確認ができた場合に行われる．
+L3スイッチを経由して接続されている端末間での送受信が行えるか確認を行う．
+その際送信を行うのはエリア1のs12下にあるt125，受信を行うのはエリア2のs23下にあるt233である．
+この動作確認ではr1，r3のルーチングテーブルが作成される前にパケット送信を行うとパケットロスが生じてしまうため，t233がパケットを受信しているかの確認を行う．
+
+以上の3つの動作確認を行い，一つでも確認できなかった場合は，テストケースが中断されるようになっている．
+テストケースを実行した結果，正常終了したので端末の動作，L2スイッチ，L3スイッチが動作していると判断した．
+
+
+% 端末モジュールは各Terminalクラスを継承する事で構成され，EUNETにおける端末，すなわちエンドユーザが利用するPCを表現する．
+% 3章で解説を行ったEunetTerminalクラスを用いて表現する．端末はOnOffNodeにて記述したランダムな時間パケットを送信，送信停止を行うOnOffアプリケーションと，PacketSinkNodeに記述した自身に向けて送信されたパケットを受信するPacketSinkアプリケーションを持つ．
+% よって端末モジュールの動作確認を行う場合は，この2つのアプリケーションが正常に働いていることと，物理的，システム的に回線が接続されていることが確認できればよい．
+
+% 今回の動作確認においては，2つの端末を直接接続し，パケットの送受信を行うことで動作確認を行い，ログを解析することで正常に動作していると確認できた．\\
+
+% \subsection{L2スイッチモジュールの動作確認}
+
+% L2スイッチモジュールは各Switchクラスを継承することで構成され，EUNETで使用されるL2スイッチを表現する．
+% 3章で解説したように，L2スイッチの動作はルーチングテーブルに従い受け取ったパケットを宛先へ送信する事と，衝突が起こらないようデータを一時的にバッファすることである．
+% L2スイッチの動作確認を行う際，端末が正常に動作していることが確認できていたので2つの端末をスイッチモジュールを介して接続し，端末モジュールのOnOffアプリケーションとPacketSinkアプリケーションを動作させ，パケットを送受信させることで動作確認を行った．
+
+% 検証結果として，パケットの送受信ができていたので正常に動作していると判断した．
+
+\subsection{L3スイッチモジュールの動作確認}
+
+L3スイッチのルーチングアルゴリズムはDCEを利用しQuaggaデーモンを使用する．本研究では，L3スイッチはOSPFv2により経路情報を交換している．前述の動作確認のためのテストシナリオではPCAP形式でパケットをダンプしている．
+このPCAPファイルを確認し，ルーチングアルゴリズムの振る舞いを検証する．
 
 \begin{figure}[tb]
 \begin{center}
-\scalebox{0.6}{\includegraphics{���[�^����m�Fr1.eps}} 
-\caption{���[�^����m�F�i�����N��ԍX�V�j}
-\label{���[�^����m�F�i�����N��ԍX�V�j}
+\scalebox{0.6}{\includegraphics{ルータ動作確認Hello.eps}} 
+\caption{ルータ動作確認（Helloメッセージ）}
+\label{ルータ動作確認（Helloメッセージ）}
 \end{center}
 \end{figure}
 
-�}\ref{���[�^����m�F�i�����N��ԍX�V�j}��r1�ɂ�����PCAP�t�@�C���̈ꕔ�ł���D
-������r1�͎��g�̗אڃm�[�h�ɑ΂��C���g���ڑ�����Ă���l�b�g���[�N�ɂ��Ă�LS-Update�i�����N��ԍX�V�j�p�P�b�g���}���`�L���X�g�ő��M���C
-����ɑ΂���r3�̉������󂯎���Ă���D
-����ŁCr1��OSPF�Ɋ�Â��ē��삵�Ă��邱�Ƃ��m�F�ł��C������r1�̃����N��Ԃ�r3���c�����Ă��邱�Ƃ��m�F�ł���D
+図\ref{ルータ動作確認（Helloメッセージ）}はL3スイッチr1におけるPCAPファイルの一部である．
+ここでr1は隣接ノードに対し，Helloメッセージにより自身の隣接ノードを伝えている．
+この時点でr1に新たに隣接ノードr4が接続されていた場合，このHelloメッセージを受け取ったr4はr1の状態を把握できる．
 
 \begin{figure}[tb]
 \begin{center}
-\scalebox{0.6}{\includegraphics{L3�X�C�b�`�w�K�L�^.eps}} 
-\caption{L3�X�C�b�`�o�H�w�K�L�^}
-\label{L3�X�C�b�`�o�H�w�K�L�^}
+\scalebox{0.6}{\includegraphics{ルータ動作確認r1.eps}} 
+\caption{ルータ動作確認（リンク状態更新）}
+\label{ルータ動作確認（リンク状態更新）}
 \end{center}
 \end{figure}
 
-�}\ref{L3�X�C�b�`�o�H�w�K�L�^}�̓e�X�g�P�[�X���s���CL3�X�C�b�`�ɂ����郋�[�`���O�e�[�u���̏󋵂������Ă���D
-���̐}�ł́C�V�~�����[�V�����J�n����50�b�o�ߎ��_�ł́C�eL3�X�C�b�`�͌o�H���w�K����Ă��炸�C�������������Ă���l�b�g���[�N�ɑ΂���o�H��񂵂��w�K���Ă��Ȃ��D
-60�b���o�߂���ƁCr1��r3�̊Ԃł͌o�H���w�K����C2�̃l�b�g���[�N�̊ԂɌo�H���ł���D
-���̌��ʁCr1���ɂ���[����r3���ɂ���[�����ʐM���s�����Ƃ��\�ƂȂ鎖���m�F�ł���D
+図\ref{ルータ動作確認（リンク状態更新）}もr1におけるPCAPファイルの一部である．
+ここでr1は自身の隣接ノードに対し，自身が接続されているネットワークについてのLS-Update（リンク状態更新）パケットをマルチキャストで送信し，
+これに対するr3の応答を受け取っている．
+これで，r1がOSPFに基づいて動作していることが確認でき，加えてr1のリンク状態をr3が把握していることも確認できる．
+
+\begin{figure}[tb]
+\begin{center}
+\scalebox{0.6}{\includegraphics{L3スイッチ学習記録.eps}} 
+\caption{L3スイッチ経路学習記録}
+\label{L3スイッチ経路学習記録}
+\end{center}
+\end{figure}
+
+図\ref{L3スイッチ経路学習記録}はテストケース実行時，L3スイッチにおけるルーチングテーブルの状況を示している．
+この図では，シミュレーション開始から50秒経過時点では，各L3スイッチは経路が学習されておらず，自分が直結しているネットワークに対する経路情報しか学習していない．
+60秒が経過すると，r1とr3の間では経路が学習され，2つのネットワークの間に経路ができる．
+その結果，r1下にある端末とr3下にある端末が通信を行うことが可能となる事が確認できる．
 
 
 
-�����̌��ʂ��C�쐬����L3�X�C�b�`��\������e�X�g���W���[�����COSPFv2��p�������[�`���O���s���C���삵�Ă��鎖���m�F�ł����D
+これらの結果より，作成したL3スイッチを表現するテストモジュールが，OSPFv2を用いたルーチングを行い，動作している事が確認できた．
 
 % \begin{figure}[tb]
 % \begin{center}
-% \scalebox{0.7}{\includegraphics{���[�^����m�FTCP�p�P�b�g.eps}} 
-% \caption{���[�^����m�F�iTCP�p�P�b�g�j}
-% \label{���[�^����m�FTCP�p�P�b�g}
+% \scalebox{0.7}{\includegraphics{ルータ動作確認TCPパケット.eps}} 
+% \caption{ルータ動作確認（TCPパケット）}
+% \label{ルータ動作確認TCPパケット}
 % \end{center}
 % \end{figure}
 
 % \begin{figure}[tb]
 % \begin{center}
-% \scalebox{0.7}{\includegraphics{���[�^����m�FUDP�p�P�b�g.eps}} 
-% \caption{���[�^����m�F�iUDP�p�P�b�g�j}
-% \label{���[�^����m�FUDP�p�P�b�g}
+% \scalebox{0.7}{\includegraphics{ルータ動作確認UDPパケット.eps}} 
+% \caption{ルータ動作確認（UDPパケット）}
+% \label{ルータ動作確認UDPパケット}
 % \end{center}
 % \end{figure}
 
-% L3�X�C�b�`���W���[���͊eRouter�N���X���p�����邱�Ƃō\������CEUNET�ɂ�����L3�X�C�b�`��\������D
-% L3�X�C�b�`���W���[���̎��@�\�Ƃ���EUNET�Ǝ��̃��[�`���O��VLAN�̎��������ۑ�ł������D�����{�����ŊJ�����s���C����m�F���s�����̂�Quagga�f�[�����𗘗p���C���[�`���O�e�[�u���ɏ]���Ď󂯎�����p�P�b�g������ւƑ��M����SimpleRouter�N���X�܂łł���D
-% SimpleRouter�N���X�̓���m�F�ł́CL2�X�C�b�`���W���[���̓���m�F�Ɠ�����2�̒[���̊Ԃ�SimpleRouter�N���X�ɂ��쐬���ꂽ���W���[����ڑ����CQuagga�f�[�����𗘗p���郂�W���[����g�ݍ��݁C���̃��[�`���O�ɂ�舶���c�����C�f�[�^�𑗐M����悤�ݒ肵���D
-% �V�~�����[�^��Ŏ��ۂɃp�P�b�g�𗬂��C��͂������ʁCQuagga�f�[���������������삵�Ă��邱�Ƃ����������D���f��Ƃ��āC���M����p�P�b�g�̎�ނ�TCP�p�P�b�g��UDP�p�P�b�g�𑗐M����V�~�����[�V���������ꂼ��s�������C�p�P�b�g�̏����ɂ����鎞�Ԃ��Ⴄ���ƁCHello���b�Z�[�W�ɑ΂��ĕԐM���s���Ă���C�p�P�b�g�̑���M���������Ă��鎖�������������߁CSimpleRouter�N���X������ɓ��삵�Ă���Ɣ��f�����D�} \ref{���[�^����m�FTCP�p�P�b�g} ��TCP�p�P�b�g�̑���M���O���C�} \ref{���[�^����m�FUDP�p�P�b�g} ��UDP�p�P�b�g�̑���M���O�������D�Փ˂�M�����͑��݂��Ȃ����C�p�P�b�g�̏����H���̍��ɂ��C�������ԂɈႢ���݂���D\\
+% L3スイッチモジュールは各Routerクラスを継承することで構成され，EUNETにおけるL3スイッチを表現する．
+% L3スイッチモジュールの持つ機能としてEUNET独自のルーチングやVLANの実装等が課題であった．だが本研究で開発を行い，動作確認を行えたのはQuaggaデーモンを利用し，ルーチングテーブルに従って受け取ったパケットを宛先へと送信するSimpleRouterクラスまでである．
+% SimpleRouterクラスの動作確認では，L2スイッチモジュールの動作確認と同じく2つの端末の間にSimpleRouterクラスにより作成されたモジュールを接続し，Quaggaデーモンを利用するモジュールを組み込み，そのルーチングにより宛先を把握し，データを送信するよう設定した．
+% シミュレータ上で実際にパケットを流し，解析した結果，Quaggaデーモンが正しく動作していることが分かった．判断基準として，送信するパケットの種類をTCPパケットとUDPパケットを送信するシミュレーションをそれぞれ行った所，パケットの処理にかかる時間が違うこと，Helloメッセージに対して返信が行われており，パケットの送受信が成功している事が分かったため，SimpleRouterクラスが正常に動作していると判断した．図 \ref{ルータ動作確認TCPパケット} にTCPパケットの送受信ログを，図 \ref{ルータ動作確認UDPパケット} にUDPパケットの送受信ログを示す．衝突や信号誤りは存在しないが，パケットの処理工程の差により，応答時間に違いがみられる．\\
 
 
-% \section{�e�N���X��p����EUNET�̍Č��E����}
+% \section{各クラスを用いたEUNETの再現・検証}
 
 % \noindent\textgt{EunetSimulation}
 
-% ����܂łɗp�ӂ����e�N���X�𗘗p���C�e�L�����p�X�̃G�b�W�l�b�g���[�N���L�q�����N���X�D
-% ���̃N���X��p���čČ������l�b�g���[�N�͐} \ref{�G�b�W�l�b�g���[�N�i�d�M�L�����p�X�j} �̂悤�ɉ��������D
+% これまでに用意した各クラスを利用し，各キャンパスのエッジネットワークを記述したクラス．
+% このクラスを用いて再現したネットワークは図 \ref{エッジネットワーク（重信キャンパス）} のように可視化される．
 
 % \begin{figure}[tb]
 % \begin{center}
-% \scalebox{0.3}{\includegraphics{�d�M�g�|���W.eps}} 
-% \caption{�G�b�W�l�b�g���[�N�i�d�M�L�����p�X�j}
-% \label{�G�b�W�l�b�g���[�N�i�d�M�L�����p�X�j}
+% \scalebox{0.3}{\includegraphics{重信トポロジ.eps}} 
+% \caption{エッジネットワーク（重信キャンパス）}
+% \label{エッジネットワーク（重信キャンパス）}
 % \end{center}
 % \end{figure}
 
-% �} \ref{�G�b�W�l�b�g���[�N�i�d�M�L�����p�X�j} �͖��[�m�[�h���[���iPC�j�C�e�m�[�h���X�C�b�`�ō\�����ꂽ�e�X�g�P�[�X�ł���D
-% �d�l���ɋL�ڂ��ꂽ�悤��C++�ŃV�i���I���L�ڂ��Ă������DEUNET���Č����C�������鎖�ɂ��S�ăl�b�g���[�N�̍����B��ƂȂ����D
-% ���̎��ɂ��ǂ̃l�b�g���[�N�ɏ������Ă���[������ł��C�S�Ă̒[���ƒʐM�ł��鎖�����������D�����āC���Q��w�̑S�ẴL�����p�X�C����������̃l�b�g���[�N�ɐڑ�����Ă���Ɣ��������D
-% ���̃e�X�g�P�[�X�ō\�������g�|���W�𗘗p���Ē[���Ƀp�P�b�g�𑗐M���������ʁC���O�̉�͂��s�����Ƃɂ��S�Ă̒[�������̑��̒[���Ƃ̒ʐM�ɐ������Ă����D����ɂ��݌v�����g�|���W�ŁC�R�l�N�V�������m�����p�P�b�g�̑���M���\�ł���ƕ��������D�܂�C�e���W���[���̐U�镑�������f�������鎖���ł���΁CEUNET�̐��\��]�����鎖���ł���D
-% �[���C�X�C�b�`��\�����郂�W���[���Ɋւ��Ă͓�����m�F�ł��Ă���C������p���鎖��ns-3��Ƀl�b�g���[�N���f�����\�z���鎖���ł���D
+% 図 \ref{エッジネットワーク（重信キャンパス）} は末端ノードが端末（PC），親ノードがスイッチで構成されたテストケースである．
+% 仕様書に記載されたようにC++でシナリオを記載していった．EUNETを再現し，可視化する事により全てネットワークの根が唯一となった．
+% この事によりどのネットワークに所属している端末からでも，全ての端末と通信できる事が分かった．加えて，愛媛大学の全てのキャンパス，建物が同一のネットワークに接続されていると判明した．
+% このテストケースで構成したトポロジを利用して端末にパケットを送信させた結果，ログの解析を行うことにより全ての端末がその他の端末との通信に成功していた．これにより設計したトポロジで，コネクションを確立しパケットの送受信が可能であると分かった．つまり，各モジュールの振る舞いをモデル化する事ができれば，EUNETの性能を評価する事ができる．
+% 端末，スイッチを表現するモジュールに関しては動作も確認できている，これらを用いる事でns-3上にネットワークモデルを構築する事ができる．
 
-% �{�����ł́C�[���C�X�C�b�`�̑���L3�X�C�b�`���W���[���̊J�����s�����DSimpleRouter�N���X�̓���m�F���s���CQuagga�f�[�����𗘗p�������[�`���O���������C�p�P�b�g�̑���M���s��L3�X�C�b�`���W���[���̍쐬�܂Ŋ��������D
+% 本研究では，端末，スイッチの他にL3スイッチモジュールの開発を行った．SimpleRouterクラスの動作確認を行い，Quaggaデーモンを利用したルーチングを実装し，パケットの送受信を行うL3スイッチモジュールの作成まで完了した．
 \end{comment}
 
-% �����̓��e
-�{�����́C
+% 自分の内容
+　本研究は，ネットワークシミュレータ上であるns-3上でOpenFlowを用いたネットワークモデルを構築し、シミュレーションを行い、ネットワークモデルが正常に動作するかを検証することが目的である。
+ns-3では、シミュレーションによるトラフィックの流れをキャプチャすることが可能であるため、これを用いて作成したネットワークモデルの動作の検証結果を本章で述べる。
+
+\section{ネットワークモデルの動作検証}
+
+動作検証を行う際に、以下の3つのケースを想定しテストコードを作成した。
+
+\begin{itemize}
+	\item 送信元と送信先のL3サブネットの所属が違うとき
+	\item 送信元と送信先のL3サブネットの所属が同じとき
+	\item 
+\end{itemize}
+
